@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Python version management
+.python-version
+
+# Jupyter
+.ipynb_checkpoints
+.jupyter
+.jupyterlab
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-workspace
+*.sublime-project
+.eclipse
+.project
+.pydevproject
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+.windows-build-log
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+*.cover
+
+# Development
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.tox/
+.vscode/
+.ruff_cache/
+
+# UV (package manager)
+uv.lock.backup
+
+# Miscellaneous
+*.bak
+*.tmp
+.cache
