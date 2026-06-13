@@ -7,7 +7,7 @@ answers. If the answer is not found in the context,
 respond with "I don't know.
 '''
 
-PROMPT_TEMPLATE = f'''
+PROMPT_TEMPLATE = '''
 QUESTION: {question}
 
 CONTEXT:
