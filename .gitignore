@@ -87,3 +87,5 @@ uv.lock.backup
 *.bak
 *.tmp
 .cache
+faq.db-shm
+faq.db-wal
