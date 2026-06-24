@@ -22,6 +22,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+rag_helper_hw1.py
 
 # Virtual Environment
 .venv
