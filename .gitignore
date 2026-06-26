@@ -90,3 +90,6 @@ uv.lock.backup
 .cache
 faq.db-shm
 faq.db-wal
+faq.db
+faq_vectors2.db
+
