@@ -202,7 +202,7 @@ Question 5:
 ```
 
 ```
-Answer: About the same (within 20%)
+Answer: 
 
 
 Question 6:
