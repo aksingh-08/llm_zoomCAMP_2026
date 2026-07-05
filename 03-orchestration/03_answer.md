@@ -200,9 +200,22 @@ Answer: 2-5x more
 
 Question 5:
 ```
+INFO 2026-07-05T06:33:28.917637Z 📊 Token Usage Summary:
+
+Multilingual Agent:
+- Input tokens: 282
+- Output tokens: 172
+- Total tokens: 454
+
+English Brevity Agent:
+- Input tokens: 187
+- Output tokens: 86
+- Total tokens: 273
+
+💡 Tip: Monitor token usage to understand costs and optimize prompts!
 
 ```
-Answer: 
+Answer: About the same (within 20%)
 
 
 Question 6:
