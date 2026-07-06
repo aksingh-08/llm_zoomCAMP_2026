@@ -8,14 +8,26 @@ def calc_price(usage):
     input_price_per_million = 0.75
     output_price_per_million = 4.50
 
-    input_cost = (usage.input_tokens / 1_000_000) * input_price_per_million
-    output_cost = (usage.output_tokens / 1_000_000) * output_price_per_million
-    total_cost = input_cost + output_cost
+    # input_cost = (usage.input_tokens / 1_000_000) * input_price_per_million
+    # output_cost = (usage.output_tokens / 1_000_000) * output_price_per_million
+    # total_cost = input_cost + output_cost
+
+    input_tokens = getattr(usage, "input_tokens", None)
+    output_tokens = getattr(usage, "output_tokens", None)
+    
+    if input_tokens is None:
+        input_tokens = usage.prompt_tokens
+    
+    if output_tokens is None:
+        output_tokens = usage.completion_tokens
+    
+    input_cost = input_tokens / 1_000_000 * input_price_per_million
+    output_cost = output_tokens / 1_000_000 * output_price_per_million
 
     return {
         "input_cost": input_cost,
         "output_cost": output_cost,
-        "total_cost": total_cost,
+        "total_cost": input_cost + output_cost,
     }
 
 
@@ -29,19 +41,48 @@ def calc_total_price(usages):
     return total_cost
 
 
-def llm_structured(client, instructions, user_prompt, output_type, model="gpt-5.4-mini"):
-    messages = [
-        {"role": "developer", "content": instructions},
-        {"role": "user", "content": user_prompt}
-    ]
+# def llm_structured(client, instructions, user_prompt, output_type, model="llama-3.3-70b-versatile"):
+#     messages = [
+#         {"role": "developer", "content": instructions},
+#         {"role": "user", "content": user_prompt}
+#     ]
 
-    response = client.responses.parse(
+#     response = client.responses.parse(
+#         model=model,
+#         input=messages,
+#         text_format=output_type
+#     )
+
+#     return response.output_parsed, response.usage
+
+
+def llm_structured(
+    client,
+    instructions,
+    user_prompt,
+    output_type,
+    model="openai/gpt-4.1-mini",
+):
+    response = client.beta.chat.completions.parse(
         model=model,
-        input=messages,
-        text_format=output_type
+        messages=[
+            {
+                "role": "developer", 
+                "content": instructions
+            },
+            {
+                "role": "user", 
+                "content": user_prompt
+            },
+        ],
+        response_format=output_type,
     )
 
-    return response.output_parsed, response.usage
+    return (
+        response.choices[0].message.parsed,
+        response.usage,
+    )
+
 
 
 def llm_structured_retry(
@@ -49,7 +90,7 @@ def llm_structured_retry(
     instructions,
     user_prompt,
     output_type,
-    model="model",
+    model="openai/gpt-4.1-mini",
     max_retries=3,
 ):
     for attempt in range(max_retries):
