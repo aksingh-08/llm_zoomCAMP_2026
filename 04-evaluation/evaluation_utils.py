@@ -8,8 +8,8 @@ def calc_price(usage):
     input_price_per_million = 0.75
     output_price_per_million = 4.50
 
-    input_cost = (usage.input_tokens / 1_000_000) * input_price_per_million
-    output_cost = (usage.output_tokens / 1_000_000) * output_price_per_million
+    input_cost = (usage.prompt_tokens / 1_000_000) * input_price_per_million
+    output_cost = (usage.completion_tokens / 1_000_000) * output_price_per_million
     total_cost = input_cost + output_cost
 
     return {
@@ -35,13 +35,13 @@ def llm_structured(client, instructions, user_prompt, output_type, model="openai
         {"role": "user", "content": user_prompt}
     ]
 
-    response = client.responses.parse(
+    response = client.beta.chat.completions.parse(
         model=model,
-        input=messages,
-        text_format=output_type
+        messages=messages,
+        response_format=output_type
     )
 
-    return response.output_parsed, response.usage
+    return response.choices[0].message.parsed, response.usage
 
 
 def llm_structured_retry(
