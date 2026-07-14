@@ -95,15 +95,15 @@ class RAGWithUsage(RAGBase):
             {"role": "user", "content": prompt}
         ]
 
-        response = self.llm_client.responses.create(
+        response = self.llm_client.beta.chat.completions.create(
             model=self.model,
-            input=input_messages
+            messages=input_messages
         )
 
         self.last_usage = response.usage
         self.usages.append(response.usage)
 
-        return response.output_text
+        return response.choices[0].message.content
 
     def total_cost(self):
         return calc_total_price(self.usages)
