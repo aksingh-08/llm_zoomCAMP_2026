@@ -3,19 +3,27 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from ingest import load_faq_data, build_index
-from rag_helper import RAGBase
+# from rag_helper import RAGBase
+from metrics import RAGWithMetrics
 
 def create_assistant():
     load_dotenv()
     documents = load_faq_data()
     index = build_index(documents)
-    return RAGBase(
+    return RAGWithMetrics(
         index=index,
         llm_client=OpenAI(
             api_key=os.getenv("GITHUB_TOKEN"),
-                base_url="https://models.github.ai/inference"
-        ),
+            base_url="https://models.github.ai/inference"
+        )
     )
+    # return RAGBase(
+    #     index=index,
+    #     llm_client=OpenAI(
+    #         api_key=os.getenv("GITHUB_TOKEN"),
+    #             base_url="https://models.github.ai/inference"
+    #     ),
+    # )
 
 if __name__ == "__main__":
     assistant = create_assistant()
