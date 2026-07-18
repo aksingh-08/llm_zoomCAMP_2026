@@ -29,6 +29,11 @@ dev = [
     "jupyter>=1.1.1",
 ]
 
+[tool.uv.workspace]
+members = [
+    "dlt-workshop/homework",
+]
+
 # [tool.uv.workspace]
 # members = [
 #     "02-vector-search",
